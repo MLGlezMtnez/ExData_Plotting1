@@ -20,14 +20,13 @@ if (!file.exists(f_Name)){
     stop("'plot1.R': Fatal Error - Couldn't find data file (nor 'file_setup.R' to get it).")
   }
 }
-rm(f_Name)
 
-# loads the data into a data table
+# loads the necessary data into a data table
 library(data.table)
-DT <- fread(input = "household_power_consumption.txt", sep = ";", nrows = 2075259,
-            header = TRUE, na.strings = c("?", "NA"))
+DT <- fread(input = f_Name, sep = ";", nrows = 2075259, header = TRUE,
+            na.strings = c("?", "NA"))
 DT_Feb <- DT[DT$Date == "1/2/2007" | DT$Date == "2/2/2007"]
-rm(DT) # frees memory space
+rm(f_Name, DT)
 
 # plots using the PNG plotting device, with the requested parameters
 png(filename = "plot1.png", width = 480, height = 480, units = "px", bg = "transparent")
