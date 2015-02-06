@@ -7,18 +7,17 @@
 #===============================================================================
 # (if necessary) downloads & unzips the data
 f_Name <- "household_power_consumption.txt"
-if (!file.exists(f_Name)){
-  if (file.exists("file_setup.R")){
-    source("file_setup.R")
-    file_setup(url = "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip",
-               fz_Name = "exdata-data-household_power_consumption.zip",
-               f_Name)
-    rm(file_setup) 
-  }
-  else{
-    rm(f_Name)
-    stop("'plot4.R': Fatal Error - Couldn't find data file (nor 'file_setup.R' to get it).")
-  }
+if(!file.exists(f_Name)) {
+    if(file.exists("file_setup.R")) {
+        source("file_setup.R")
+        file_setup(url = "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip",
+                   fz_Name = "exdata-data-household_power_consumption.zip",
+                   f_Name)
+        rm(file_setup) 
+    } else {
+        rm(f_Name)
+        stop("'plot4.R': Fatal Error - Couldn't find data file (nor 'file_setup.R' to get it).")
+    }
 }
 
 # loads the necessary data into a data table
@@ -29,7 +28,8 @@ DT_Feb <- DT[DT$Date == "1/2/2007" | DT$Date == "2/2/2007"]
 rm(f_Name, DT)
 
 # plots using the PNG plotting device, with the requested parameters
-png(filename = "plot4.png", width = 480, height = 480, units = "px", bg = "transparent")
+png(filename = "plot4.png", width = 480, height = 480, units = "px",
+    bg = "transparent")
 week_day <- strptime(paste(DT_Feb$Date, DT_Feb$Time, sep = " "),
                      format = "%d/%m/%Y %H:%M:%S")
 par(mfcol = c(2, 2))
